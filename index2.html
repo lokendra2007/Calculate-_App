@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>BMI</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle, rgb(232, 250, 158) 0%, rgb(193, 90, 148) 100%);
+      padding: 40px 0;
+    }
+
+    .contaner{
+      padding: 20px;
+      margin: 50px auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      width: 400px;
+      height: 500px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 29px;
+      box-shadow: 2px 2px 10px #00000080, inset 2px 2px 10px #00000080;
+      background: rgba(2, 227, 145, 0.15);
+    }
+
+    input,
+    select {
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background-color: lightcyan;
+      outline: none;
+      width: 80%;
+    }
+
+    button {
+      background-color: rgba(40, 5, 5, 0.841);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="contaner">
+
+    <!-- Interest -->
+    <div class="box">
+      <h2>Interest Calculator</h2>
+      <input type="number" id="principal" placeholder="Principal Amount">
+      <input type="number" id="rate" placeholder="Rate of Interest (%)">
+      <input type="number" id="time" placeholder="Time⌚(Years)">
+      <button onclick="calcInterest()">Calculate Interest</button>
+      <h3 id="interestResult"></h3>
+    </div>
+
+    <!-- BMI -->
+    <div class="box">
+      <h2>BMI Calculator</h2>
+      <input type="number" id="bmiWeight" placeholder="Weight (kg)">
+      <input type="number" id="bmiHeight" placeholder="Height (meter)">
+      <button onclick="calcBMI()">Calculate BMI</button>
+      <h3 id="bmiResult"></h3>
+    </div>
+
+    <!-- Calorie -->
+    <div class="box">
+      <h1>Calorie Calculator</h1>
+
+      <label>Weight (kg)</label>
+      <input type="number" id="calWeight" placeholder="weight">
+
+      <label>Height (cm)</label>
+      <input type="number" id="calHeight" placeholder="height">
+
+      <label>Age</label>
+      <input type="number" id="age" placeholder="age">
+
+      <label>Gender</label>
+      <select id="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label>Activity Level</label>
+      <select id="activity">
+        <option value="1.2">Sedentary</option>
+        <option value="1.375">Light Active</option>
+        <option value="1.55">Moderate Active</option>
+        <option value="1.725">Very Active</option>
+        <option value="1.9">Extra Active</option>
+      </select>
+
+      <button onclick="calculate()">Calculate</button>
+
+      <h2 id="result"></h2>
+    </div>
+
+  </div>
+
+  <script>
+
+    // Interest Calculator
+    function calcInterest() {
+      let p = document.getElementById("principal").value;
+      let r = document.getElementById("rate").value;
+      let t = document.getElementById("time").value;
+
+      let interest = (p * r * t) / 100;
+
+      document.getElementById("interestResult").innerText =
+        "Simple Interest: ₹" + interest;
+    }
+
+    // BMI Calculator
+    function calcBMI() {
+      let w = document.getElementById("bmiWeight").value;
+      let h = document.getElementById("bmiHeight").value;
+
+      let bmi = (w / (h * h)).toFixed(2);
+
+      document.getElementById("bmiResult").innerText = "Your BMI: " + bmi;
+    }
+
+    // Calorie Calculator
+    function calculate() {
+      let weight = document.getElementById("calWeight").value;
+      let height = document.getElementById("calHeight").value;
+      let age = document.getElementById("age").value;
+      let gender = document.getElementById("gender").value;
+      let activity = document.getElementById("activity").value;
+
+      if (!weight || !height || !age) {
+        document.getElementById("result").innerText = "Please fill all fields!";
+        return;
+      }
+
+      let bmr;
+
+      if (gender === "male") {
+        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+      } else {
+        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+      }
+
+      let calories = bmr * activity;
+
+      document.getElementById("result").innerText =
+        "Daily Calorie Needs: " + Math.round(calories) + " kcal";
+    }
+
+  </script>
+
+</body>
+
+</html>
